@@ -20,6 +20,9 @@ export default function Testing() {
   ) {
     if (e.target !== containerRef.current) return;
 
+    containerRef.current.style.cursor =
+      containerRef.current.style.cursor === "default" ? "none" : "default";
+
     const { clientX, clientY } = e;
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect();
@@ -49,9 +52,8 @@ export default function Testing() {
 
   useEffect(() => {
     function handleMouseMove(e: MouseEvent) {
-      if (e.target !== containerRef.current) return;
       const containerRect = containerRef.current?.getBoundingClientRect();
-      if (containerRect) {
+      if (containerRect && !showCharacterList) {
         const offsetX = e.pageX - containerRect.left;
         const offsetY = e.pageY - containerRect.top;
 
@@ -65,6 +67,7 @@ export default function Testing() {
         const backgroundPosY = -(offsetY * ZOOM_FACTOR - ZOOM_SIZE / 2);
 
         setZoomStyle({
+          display: "block",
           width: `${ZOOM_SIZE}px`,
           height: `${ZOOM_SIZE}px`,
           top: `${zoomY}px`,
@@ -80,7 +83,7 @@ export default function Testing() {
     return () => {
       containerRef.current?.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [showCharacterList]);
 
   return (
     <div className="overflow-x-hidden h-full relative bg-black  overflow-y-scroll">
@@ -89,6 +92,11 @@ export default function Testing() {
         src="images\wallpaperflare.com_wallpaper.jpg"
         className="hover:cursor-none grow aspect-video relative  w-full"
         onClick={handleClick}
+        onMouseLeave={() => {
+          if (!showCharacterList && containerRef.current) {
+            setZoomStyle({ ...zoomStyle, display: "none" });
+          }
+        }}
       />
       <div
         className="zoom  shadow shadow-black rounded-full  absolute bg-black bg-no-repeat bg-contained"
