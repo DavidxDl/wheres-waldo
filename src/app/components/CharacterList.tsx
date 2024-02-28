@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
+import { character, image } from "../testing/page";
 
 interface Props {
   onTarget: React.MutableRefObject<true | false>;
   position: { x: number; y: number };
+  setSelected: React.Dispatch<SetStateAction<null | character>>;
+  characters: character[];
+  closeSelf: (b: boolean) => void;
 }
 
-const CharacterList = ({ onTarget, position }: Props) => {
+const CharacterList = ({
+  onTarget,
+  position,
+  setSelected,
+  characters,
+  closeSelf,
+}: Props) => {
   const [result, setResults] = useState<null | string>(null);
-  function handleClick() {
-    if (onTarget.current) {
-      setResults("✅");
-    } else {
-      setResults("❌");
-    }
+  function handleClick(char: character) {
+    setSelected(char);
+    closeSelf(false);
   }
   return (
     <div
@@ -23,12 +30,14 @@ const CharacterList = ({ onTarget, position }: Props) => {
         <p className="hover:cursor-default">{result}</p>
       ) : (
         <ul className="flex flex-col items-center w-full">
-          <li
-            onClick={handleClick}
-            className="transition-transform duration-400 active:translate-y-[-10px] hover:scale-110 hover:cursor-pointer p-0 m-0"
-          >
-            👲 Waldo
-          </li>
+          {characters.map((char) => (
+            <li
+              onClick={() => handleClick(char)}
+              className="capitalize font-bold hover:scale-110 hover:cursor-pointer active:translate-y-[-2px] transition-transform"
+            >
+              {char.name}
+            </li>
+          ))}
         </ul>
       )}
     </div>
