@@ -10,6 +10,20 @@
   animation-timing-function: ease-in-out;
 }
 
+.aspect-ratio-custom {
+  aspect-ratio: 3000/1902;
+}
+
+.dissapear {
+  display: flex;
+  animation-name: dissapear;
+  animation-duration: 4s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+  transform-origin: bottom;
+  animation-fill-mode: forwards;
+}
+
 .text-shadow {
   text-shadow: "1px 1px 2px black";
 }
@@ -20,5 +34,25 @@
   }
   100% {
     transform: scaleY(1);
+  }
+}
+
+@keyframes dissapear {
+  0% {
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  15% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  75% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    display: none;
+    opacity: 0;
   }
 }

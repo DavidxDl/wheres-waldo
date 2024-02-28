@@ -13,7 +13,8 @@ interface Props {
 }
 
 export default function ImageGame({ image }: Props) {
-  const containerRef = useRef<HTMLImageElement | null>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const winnerText = useRef<null | HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [discoveredCharacters, setDiscoveredCharacters] = useState(new Set());
   const [zoomStyle, setZoomStyle] = useState({});
@@ -25,14 +26,14 @@ export default function ImageGame({ image }: Props) {
   function handleClick(
     e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>
   ) {
-    if (e.target !== containerRef.current) return;
+    if (e.target !== imageRef.current) return;
 
-    containerRef.current.style.cursor =
-      containerRef.current.style.cursor === "default" ? "none" : "default";
+    imageRef.current.style.cursor =
+      imageRef.current.style.cursor === "default" ? "none" : "default";
 
     const { clientX, clientY } = e;
     const { left, top, width, height } =
-      containerRef.current.getBoundingClientRect();
+      imageRef.current.getBoundingClientRect();
 
     const normalizedX = clientX / width;
     const normalizedY = clientY / height;
@@ -52,6 +53,7 @@ export default function ImageGame({ image }: Props) {
 
   if (
     selectedCharacter &&
+    !discoveredCharacters.has(selectedCharacter.name) &&
     mousePosition.y >= selectedCharacter.y - 0.05 &&
     mousePosition.y <= selectedCharacter.y + 0.05 &&
     mousePosition.x >= selectedCharacter.x - 0.02 &&
@@ -61,11 +63,15 @@ export default function ImageGame({ image }: Props) {
       setDiscoveredCharacters((s) =>
         new Set(discoveredCharacters).add(selectedCharacter.name)
       );
-  }
+    if (winnerText.current) {
+      winnerText.current.classList.add("dissapear");
+      setTimeout(() => winnerText.current?.classList.remove("dissapear"), 5000);
+    }
+  } else if (selectedCharacter) setSelectedCharacter(null);
 
   useEffect(() => {
     function handleMouseMove(e: MouseEvent) {
-      const containerRect = containerRef.current?.getBoundingClientRect();
+      const containerRect = imageRef.current?.getBoundingClientRect();
       if (containerRect && !showCharacterList) {
         const offsetX = e.pageX - containerRect.left;
         const offsetY = e.pageY - containerRect.top;
@@ -92,22 +98,22 @@ export default function ImageGame({ image }: Props) {
       }
     }
 
-    containerRef.current?.addEventListener("mousemove", handleMouseMove);
+    imageRef.current?.addEventListener("mousemove", handleMouseMove);
     return () => {
-      containerRef.current?.removeEventListener("mousemove", handleMouseMove);
+      imageRef.current?.removeEventListener("mousemove", handleMouseMove);
     };
   }, [showCharacterList]);
 
   return (
     <div className="overflow-x-hidden h-full relative bg-black  overflow-y-scroll">
       <img
-        ref={containerRef}
+        ref={imageRef}
         src={`images/${image._id}.jpg`}
         style={{ filter: `${showCharacterList ? "blur(2px)" : ""} ` }}
-        className={`hover:cursor:none grow aspect-video relative  w-full `}
+        className={`max-h-[616px] aspect-ratio-custom hover:cursor:none grow aspect-video relative  w-full `}
         onClick={handleClick}
         onMouseLeave={() => {
-          if (!showCharacterList && containerRef.current) {
+          if (!showCharacterList && imageRef.current) {
             setZoomStyle({
               ...zoomStyle,
               display: "none",
@@ -132,7 +138,7 @@ export default function ImageGame({ image }: Props) {
           characters={image.characters}
           position={mousePosition}
           closeSelf={setShowCharacterList}
-          imageSize={containerRef.current?.getBoundingClientRect()}
+          imageSize={imageRef.current?.getBoundingClientRect()}
         />
       )}
       {image.characters.map((char) => (
@@ -140,12 +146,18 @@ export default function ImageGame({ image }: Props) {
           key={char.name}
           style={{
             display: `${discoveredCharacters.has(char.name) ? "block" : "none"}`,
-            top: `${char.y * containerRef.current?.getBoundingClientRect().height - OFFSET_X}px`,
-            left: `${char.x * containerRef.current?.getBoundingClientRect().width - OFFSET_X}px`,
+            top: `${char.y * imageRef.current?.getBoundingClientRect().height - OFFSET_X}px`,
+            left: `${char.x * imageRef.current?.getBoundingClientRect().width - OFFSET_X}px`,
           }}
           className="absolute w-16 h-16 rounded-full bg-none border-2 border-red-700"
         ></div>
       ))}
+      <div
+        ref={winnerText}
+        className="hidden  items-center justify-center text-white font-bold text-xl absolute h-10 w-full left-0 right-0 bottom-0 bg-black/90"
+      >
+        ✅ Well Done
+      </div>
     </div>
   );
 }
