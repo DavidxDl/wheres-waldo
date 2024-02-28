@@ -104,7 +104,7 @@ export default function ImageGame({ image }: Props) {
         ref={containerRef}
         src={`images/${image._id}.jpg`}
         style={{ filter: `${showCharacterList ? "blur(2px)" : ""} ` }}
-        className={`hover:${showCharacterList ? "cursor-default" : "cursor-none"} grow aspect-video relative  w-full `}
+        className={`hover:cursor:none grow aspect-video relative  w-full `}
         onClick={handleClick}
         onMouseLeave={() => {
           if (!showCharacterList && containerRef.current) {
@@ -132,6 +132,7 @@ export default function ImageGame({ image }: Props) {
           characters={image.characters}
           position={mousePosition}
           closeSelf={setShowCharacterList}
+          imageSize={containerRef.current?.getBoundingClientRect()}
         />
       )}
       {image.characters.map((char) => (

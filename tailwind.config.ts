@@ -11,4 +11,9 @@ export default {
     },
   },
   plugins: [],
+  extend: {
+    textShadow: {
+      default: "2px 2px 2px black",
+    },
+  },
 } satisfies Config;

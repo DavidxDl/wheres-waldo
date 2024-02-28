@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.roll-down {
+  transform-origin: bottom;
+  animation-name: roll-down;
+  animation-duration: 300ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+.text-shadow {
+  text-shadow: "1px 1px 2px black";
+}
+
+@keyframes roll-down {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
