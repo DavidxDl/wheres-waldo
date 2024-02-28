@@ -14,8 +14,9 @@ interface Props {
 }
 
 export default function ImageGame({ image }: Props) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLImageElement | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [discoveredCharacters, setDiscoveredCharacters] = useState(new Set());
   const onTarget = useRef(false);
   const [zoomStyle, setZoomStyle] = useState({});
   const [showCharacterList, setShowCharacterList] = useState(false);
@@ -44,7 +45,7 @@ export default function ImageGame({ image }: Props) {
     } else {
       setShowCharacterList(true);
     }
-    console.log(e.pageX + OFFSET_X, width);
+
     setMousePosition({
       x: normalizedX,
       y: normalizedY,
@@ -59,8 +60,10 @@ export default function ImageGame({ image }: Props) {
     mousePosition.x <= selectedCharacter.x + 0.02
   ) {
     onTarget.current = true;
-  } else {
-    onTarget.current = false;
+    !discoveredCharacters.has(selectedCharacter.name) &&
+      setDiscoveredCharacters((s) =>
+        new Set(discoveredCharacters).add(selectedCharacter.name)
+      );
   }
 
   useEffect(() => {
@@ -104,7 +107,7 @@ export default function ImageGame({ image }: Props) {
         ref={containerRef}
         src={`images/${image._id}.jpg`}
         style={{ filter: `${showCharacterList ? "blur(2px)" : ""} ` }}
-        className={`hover:cursor-none grow aspect-video relative  w-full `}
+        className={`hover:${showCharacterList ? "cursor-default" : "cursor-none"} grow aspect-video relative  w-full `}
         onClick={handleClick}
         onMouseLeave={() => {
           if (!showCharacterList && containerRef.current) {
@@ -135,15 +138,16 @@ export default function ImageGame({ image }: Props) {
           closeSelf={setShowCharacterList}
         />
       )}
-      {onTarget.current && selectedCharacter && containerRef.current && (
+      {image.characters.map((char) => (
         <div
           style={{
-            top: `${selectedCharacter.y * containerRef.current.getBoundingClientRect().height - OFFSET_X}px`,
-            left: `${selectedCharacter.x * containerRef.current.getBoundingClientRect().width - OFFSET_X}px`,
+            display: `${discoveredCharacters.has(char.name) ? "block" : "none"}`,
+            top: `${char.y * containerRef.current?.getBoundingClientRect().height - OFFSET_X}px`,
+            left: `${char.x * containerRef.current?.getBoundingClientRect().width - OFFSET_X}px`,
           }}
           className="absolute w-16 h-16 rounded-full bg-none border-2 border-red-700"
         ></div>
-      )}
+      ))}
     </div>
   );
 }
