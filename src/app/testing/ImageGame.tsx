@@ -4,7 +4,6 @@ import React, { useRef, useState, useEffect } from "react";
 import CharacterList from "../components/CharacterList";
 import { image, character } from "./page";
 
-const WALDO = { x: 0.8541284403669724, y: 0.7372069317023445 };
 const ZOOM_FACTOR = 2; // Adjust zoom level
 const OFFSET_X = 40;
 const ZOOM_SIZE = 120; // Adjust zoomed area size
@@ -17,7 +16,6 @@ export default function ImageGame({ image }: Props) {
   const containerRef = useRef<HTMLImageElement | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [discoveredCharacters, setDiscoveredCharacters] = useState(new Set());
-  const onTarget = useRef(false);
   const [zoomStyle, setZoomStyle] = useState({});
   const [showCharacterList, setShowCharacterList] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<null | character>(
@@ -59,7 +57,6 @@ export default function ImageGame({ image }: Props) {
     mousePosition.x >= selectedCharacter.x - 0.02 &&
     mousePosition.x <= selectedCharacter.x + 0.02
   ) {
-    onTarget.current = true;
     !discoveredCharacters.has(selectedCharacter.name) &&
       setDiscoveredCharacters((s) =>
         new Set(discoveredCharacters).add(selectedCharacter.name)
@@ -132,7 +129,6 @@ export default function ImageGame({ image }: Props) {
       {showCharacterList && (
         <CharacterList
           setSelected={setSelectedCharacter}
-          onTarget={onTarget}
           characters={image.characters}
           position={mousePosition}
           closeSelf={setShowCharacterList}
@@ -140,6 +136,7 @@ export default function ImageGame({ image }: Props) {
       )}
       {image.characters.map((char) => (
         <div
+          key={char.name}
           style={{
             display: `${discoveredCharacters.has(char.name) ? "block" : "none"}`,
             top: `${char.y * containerRef.current?.getBoundingClientRect().height - OFFSET_X}px`,
