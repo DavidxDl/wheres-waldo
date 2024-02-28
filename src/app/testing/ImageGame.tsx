@@ -28,9 +28,6 @@ export default function ImageGame({ image }: Props) {
   ) {
     if (e.target !== imageRef.current) return;
 
-    imageRef.current.style.cursor =
-      imageRef.current.style.cursor === "default" ? "none" : "default";
-
     const { clientX, clientY } = e;
     const { left, top, width, height } =
       imageRef.current.getBoundingClientRect();
@@ -110,7 +107,7 @@ export default function ImageGame({ image }: Props) {
         ref={imageRef}
         src={`images/${image._id}.jpg`}
         style={{ filter: `${showCharacterList ? "blur(2px)" : ""} ` }}
-        className={`max-h-[616px] aspect-ratio-custom hover:cursor:none grow aspect-video relative  w-full `}
+        className={`max-h-[616px] aspect-ratio-custom hover: ${showCharacterList ? "cursor-default" : "cursor-none"} grow aspect-video relative  w-full `}
         onClick={handleClick}
         onMouseLeave={() => {
           if (!showCharacterList && imageRef.current) {
