@@ -138,17 +138,20 @@ export default function ImageGame({ image }: Props) {
           imageSize={imageRef.current?.getBoundingClientRect()}
         />
       )}
-      {image.characters.map((char) => (
-        <div
-          key={char.name}
-          style={{
-            display: `${discoveredCharacters.has(char.name) ? "block" : "none"}`,
-            top: `${char.y * imageRef.current?.getBoundingClientRect().height - OFFSET_X}px`,
-            left: `${char.x * imageRef.current?.getBoundingClientRect().width - OFFSET_X}px`,
-          }}
-          className="absolute w-16 h-16 rounded-full bg-none border-2 border-red-700"
-        ></div>
-      ))}
+      {image.characters.map(
+        (char) =>
+          imageRef.current && (
+            <div
+              key={char.name}
+              style={{
+                display: `${discoveredCharacters.has(char.name) ? "block" : "none"}`,
+                top: `${char.y * imageRef.current?.getBoundingClientRect().height - OFFSET_X}px`,
+                left: `${char.x * imageRef.current?.getBoundingClientRect().width - OFFSET_X}px`,
+              }}
+              className="absolute w-16 h-16 rounded-full bg-none border-2 border-red-700"
+            ></div>
+          )
+      )}
       <div
         ref={winnerText}
         className="hidden  items-center justify-center text-white font-bold text-xl absolute h-10 w-full left-0 right-0 bottom-0 bg-black/90"
