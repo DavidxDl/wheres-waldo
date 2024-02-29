@@ -42,7 +42,7 @@
     transform: scaleY(0);
     opacity: 1;
   }
-  15% {
+  10% {
     transform: scaleY(1);
     opacity: 1;
   }

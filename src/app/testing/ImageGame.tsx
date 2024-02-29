@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import CharacterList from "../components/CharacterList";
 import { image, character } from "./page";
+import Zoom from "../components/Zoom";
 
 const ZOOM_FACTOR = 2; // Adjust zoom level
 const OFFSET_X = 40;
@@ -29,18 +30,13 @@ export default function ImageGame({ image }: Props) {
     if (e.target !== imageRef.current) return;
 
     const { clientX, clientY } = e;
-    const { left, top, width, height } =
-      imageRef.current.getBoundingClientRect();
+    const { width, height } = imageRef.current.getBoundingClientRect();
 
     const normalizedX = clientX / width;
     const normalizedY = clientY / height;
 
     console.log(normalizedX, normalizedY);
-    if (showCharacterList) {
-      setShowCharacterList(false);
-    } else {
-      setShowCharacterList(true);
-    }
+    setShowCharacterList((s) => !s);
 
     setMousePosition({
       x: normalizedX,
@@ -56,10 +52,9 @@ export default function ImageGame({ image }: Props) {
     mousePosition.x >= selectedCharacter.x - 0.02 &&
     mousePosition.x <= selectedCharacter.x + 0.02
   ) {
-    !discoveredCharacters.has(selectedCharacter.name) &&
-      setDiscoveredCharacters((s) =>
-        new Set(discoveredCharacters).add(selectedCharacter.name)
-      );
+    setDiscoveredCharacters((s) =>
+      new Set(discoveredCharacters).add(selectedCharacter.name)
+    );
     if (winnerText.current) {
       winnerText.current.classList.add("dissapear");
       setTimeout(() => winnerText.current?.classList.remove("dissapear"), 5000);
@@ -118,17 +113,11 @@ export default function ImageGame({ image }: Props) {
           }
         }}
       />
-      <div
-        className="zoom  shadow shadow-black rounded-full  absolute bg-black bg-no-repeat bg-contained"
-        style={{
-          ...zoomStyle,
-          backgroundImage: `url("images/${image._id}.jpg")`,
-          position: "absolute",
-          zIndex: 2,
-          pointerEvents: "none",
-          border: `${showCharacterList ? "3px solid red" : "none"}`,
-        }}
-      ></div>
+      <Zoom
+        image={image._id}
+        zoomStyle={zoomStyle}
+        showCharacterList={showCharacterList}
+      />
       {showCharacterList && (
         <CharacterList
           setSelected={setSelectedCharacter}

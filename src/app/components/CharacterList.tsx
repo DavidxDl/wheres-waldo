@@ -59,7 +59,7 @@ function getMousePos(imageSize: DOMRect, position: { x: number; y: number }) {
     x: position.x * imageSize.width,
     y: position.y * imageSize.height,
   };
-  if (tmpPos.x + OFFSET + 50 >= imageSize.width) {
+  if (tmpPos.x + OFFSET * 3 >= imageSize.width) {
     tmpPos.x -= OFFSET * 4;
   } else {
     tmpPos.x += OFFSET;
