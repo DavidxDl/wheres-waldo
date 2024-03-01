@@ -1,5 +1,5 @@
 import React from "react";
-import ImageGame from "./ImageGame";
+import ImageGame from "../../components/ImageGame";
 
 export interface character {
   name: string;
@@ -9,12 +9,13 @@ export interface character {
 export interface image {
   _id: string;
   characters: character[];
+  description: string;
 }
 const Test = async () => {
   const images = await getImages();
   return (
     <div>
-      <ImageGame image={images[0]} />
+      <ImageGame image={images[1]} />
       <div className="flex flex-col">
         <h1 className="text-center text-3xl font-extrabold text-white">
           Some Info

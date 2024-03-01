@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import CharacterList from "../components/CharacterList";
-import { image, character } from "./page";
-import Zoom from "../components/Zoom";
+import CharacterList from "./CharacterList";
+import { image, character } from "../app/testing/page";
+import Zoom from "./Zoom";
 
 const ZOOM_FACTOR = 2; // Adjust zoom level
 const OFFSET_X = 40;
@@ -97,20 +97,22 @@ export default function ImageGame({ image }: Props) {
   }, [showCharacterList]);
 
   return (
-    <div className="overflow-x-hidden h-full relative bg-black  overflow-y-scroll">
+    <div className="overflow-hidden h-full relative bg-black">
       <img
         ref={imageRef}
-        src={`images/${image._id}.jpg`}
-        style={{ filter: `${showCharacterList ? "blur(2px)" : ""} ` }}
-        className={`max-h-[616px] aspect-ratio-custom hover: ${showCharacterList ? "cursor-default" : "cursor-none"} grow aspect-video relative  w-full `}
+        src={`/images/${image._id}.jpg`}
+        style={{
+          aspectRatio: `${imageRef.current?.getBoundingClientRect().width}/${imageRef.current?.getBoundingClientRect().height}`,
+          filter: `${showCharacterList ? "blur(2px)" : ""} `,
+        }}
+        className={` max-h-[616px] hover: ${showCharacterList ? "cursor-default" : "cursor-none"} grow aspect-video relative  w-full `}
         onClick={handleClick}
         onMouseLeave={() => {
-          if (!showCharacterList && imageRef.current) {
+          if (!showCharacterList && imageRef.current)
             setZoomStyle({
               ...zoomStyle,
               display: "none",
             });
-          }
         }}
       />
       <Zoom

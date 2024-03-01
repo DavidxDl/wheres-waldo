@@ -1,4 +1,4 @@
-import connectMongoDB from "lib/mongoDB";
+import connectMongoDB from "~/lib/mongoDB";
 import Image from "models/Image";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
