@@ -1,6 +1,7 @@
 import React from "react";
 import { character } from "~/app/testing/page";
 import ImageGame from "~/components/ImageGame";
+import Timer from "~/components/Timer";
 
 export default async function ImagePage({
   params,
@@ -8,23 +9,21 @@ export default async function ImagePage({
   params: { imageId: string };
 }) {
   const image = await getImage(params.imageId);
+  const startedTime = 0;
   return (
     <div>
       <ImageGame image={image} />
-      <div className="flex flex-col bg-black/90 backdrop-blur-md text-white">
-        <div className="flex px-5  text-3xl font-extrabold text-white">
-          <div>
-            <p>Characters: </p>
+      <div className="bg-black/90 backdrop-blur-md text-white">
+        <div className="flex justify-between px-5  text-3xl font-extrabold text-white">
+          <div className=" flex items-end gap-4">
+            <p className="">Characters: </p>
+            <ul className="align-center gap-4 justify-center flex text-white font-extrabold text-2xl w-full">
+              {image.characters.map((char: character) => (
+                <li key={char.name}>{char.name}</li>
+              ))}
+            </ul>
           </div>
-          <div className="text-center flex-grow ">Clock</div>
-        </div>
-        <div className="md:hidden">
-          <h2 className="text-2xl font-extrabold text-center">Characters:</h2>
-          <ul className="align-center gap-4 justify-center flex text-white font-extrabold text-2xl w-full">
-            {image.characters.map((char: character) => (
-              <li>{char.name}</li>
-            ))}
-          </ul>
+          <Timer />
         </div>
       </div>
     </div>

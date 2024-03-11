@@ -15,6 +15,19 @@
   width: 100%; /* Adjust width as needed */
 }
 
+.striped-text {
+  background: repeating-linear-gradient(
+    to right,
+    red,
+    red 50%,
+    white 50%,
+    white
+  );
+  background-size: 60px;
+  color: transparent;
+  background-clip: text;
+}
+
 .roll-down {
   transform-origin: bottom;
   animation-name: roll-down;
