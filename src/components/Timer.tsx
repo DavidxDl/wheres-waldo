@@ -1,7 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-function Timer() {
+interface Props {
+  passedTime: React.MutableRefObject<number>;
+}
+function Timer({ passedTime }: Props) {
   const [elapsedTime, setElapsedTime] = useState(0);
 
   async function syncTimer() {
@@ -9,6 +12,7 @@ function Timer() {
     const data = await res.json();
     console.log(data);
     setElapsedTime(data.elapsedTime);
+    passedTime.current = data.elapsedTime;
   }
 
   useEffect(() => {

@@ -11,13 +11,18 @@ const ZOOM_SIZE = 120; // Adjust zoomed area size
 
 interface Props {
   image: image;
+  discoveredCharacters: Set<string>;
+  setDiscoveredCharacters: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
-export default function ImageGame({ image }: Props) {
+export default function ImageGame({
+  image,
+  discoveredCharacters,
+  setDiscoveredCharacters,
+}: Props) {
   const imageRef = useRef<HTMLImageElement | null>(null);
   const winnerText = useRef<null | HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [discoveredCharacters, setDiscoveredCharacters] = useState(new Set());
   const [zoomStyle, setZoomStyle] = useState({});
   const [showCharacterList, setShowCharacterList] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<null | character>(
