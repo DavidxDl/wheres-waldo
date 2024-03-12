@@ -7,6 +7,7 @@ interface Props {
   characters: character[];
   closeSelf: (b: boolean) => void;
   imageSize: DOMRect | undefined;
+  discoveredCharacters: Set<string>;
 }
 
 const OFFSET = 40;
@@ -17,6 +18,7 @@ const CharacterList = ({
   characters,
   closeSelf,
   imageSize,
+  discoveredCharacters,
 }: Props) => {
   const mousePos = imageSize
     ? getMousePos(imageSize, position)
@@ -35,20 +37,23 @@ const CharacterList = ({
       className="text-shadow roll-down text-xl text-[#ff0]  shadow shadow-black flex justify-center z-10 rounded p-3 bg-white/30 border-[1px] border-white/80 backdrop-blur-[2px] absolute min-h-32 min-w-28"
     >
       <ul className="flex flex-col items-center w-full">
-        {characters.map((char) => (
-          <li
-            key={char.name}
-            onClick={() => handleClick(char)}
-            className="
+        {characters.map(
+          (char) =>
+            !discoveredCharacters.has(char.name) && (
+              <li
+                key={char.name}
+                onClick={() => handleClick(char)}
+                className="
             capitalize font-bold
             hover:scale-110 hover:cursor-pointer
             active:translate-y-[-2px] transition-transform
 
             "
-          >
-            {char.name}
-          </li>
-        ))}
+              >
+                {char.name}
+              </li>
+            )
+        )}
       </ul>
     </div>
   );

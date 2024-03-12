@@ -127,6 +127,7 @@ export default function ImageGame({
       />
       {showCharacterList && (
         <CharacterList
+          discoveredCharacters={discoveredCharacters}
           setSelected={setSelectedCharacter}
           characters={image.characters}
           position={mousePosition}
