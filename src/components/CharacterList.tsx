@@ -34,7 +34,7 @@ const CharacterList = ({
         left: mousePos.x,
         top: mousePos.y,
       }}
-      className="text-shadow roll-down text-xl text-[#ff0]  shadow shadow-black flex justify-center z-10 rounded p-3 bg-white/30 border-[1px] border-white/80 backdrop-blur-[2px] absolute min-h-32 min-w-28"
+      className="text-shadow roll-down text-2xl text-[#ff0]  shadow shadow-black flex justify-center z-10 rounded p-3 bg-white/30 border-[1px] border-white/80 backdrop-blur-[2px] absolute min-h-32 min-w-28"
     >
       <ul className="flex flex-col items-center w-full">
         {characters.map(

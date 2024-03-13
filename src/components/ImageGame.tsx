@@ -13,12 +13,14 @@ interface Props {
   image: image;
   discoveredCharacters: Set<string>;
   setDiscoveredCharacters: React.Dispatch<React.SetStateAction<Set<string>>>;
+  children: React.ReactNode;
 }
 
 export default function ImageGame({
   image,
   discoveredCharacters,
   setDiscoveredCharacters,
+  children,
 }: Props) {
   const imageRef = useRef<HTMLImageElement | null>(null);
   const winnerText = useRef<null | HTMLDivElement>(null);
@@ -103,6 +105,7 @@ export default function ImageGame({
 
   return (
     <div className="overflow-hidden h-full relative bg-black">
+      {children}
       <img
         ref={imageRef}
         src={`/images/${image._id}.jpg`}
