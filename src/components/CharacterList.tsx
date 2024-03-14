@@ -45,7 +45,7 @@ const CharacterList = ({
                 onClick={() => handleClick(char)}
                 className="
             capitalize font-bold
-            hover:scale-110 hover:cursor-pointer
+            hover:scale-150 hover:cursor-pointer
             active:translate-y-[-2px] transition-transform
 
             "

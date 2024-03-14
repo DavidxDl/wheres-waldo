@@ -2,12 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const imageSchema = new Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  characters: {
-    type: Object,
-    default: [],
-  },
+  characters: [{ name: String, x: mongoose.SchemaTypes.Number, y: mongoose.SchemaTypes.Number }],
+  scores: [{ name: String, score: Number }],
 });
 
-const image = mongoose.models.Image || mongoose.model("Image", imageSchema);
+const Image = mongoose.models.Image || mongoose.model("Image", imageSchema);
 
-export default image;
+export default Image;

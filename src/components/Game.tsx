@@ -24,7 +24,7 @@ function Game({ image }: Props) {
         discoveredCharacters={discoveredCharacters}
         setDiscoveredCharacters={setDiscoveredCharacters}
       >
-        {gameOver && <WinnerPanel score={elapsedTime.current} />}
+        {gameOver && <WinnerPanel score={elapsedTime.current} id={image._id} />}
       </ImageGame>
       {!gameOver && (
         <div className="bg-black/90 backdrop-blur-md text-white">
