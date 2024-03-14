@@ -6,6 +6,7 @@ import ImageGame from "./ImageGame";
 import CharacterListItem from "./CharacterListItem";
 import Timer from "~/components/Timer";
 import WinnerPanel from "./WinnerPanel";
+import Scores from "./Scores";
 
 interface Props {
   image: image;
@@ -24,7 +25,9 @@ function Game({ image }: Props) {
         discoveredCharacters={discoveredCharacters}
         setDiscoveredCharacters={setDiscoveredCharacters}
       >
-        {gameOver && <WinnerPanel score={elapsedTime.current} id={image._id} />}
+        {gameOver && <WinnerPanel score={elapsedTime.current} id={image._id} >
+          <Scores scores={image.scores} />
+        </WinnerPanel>}
       </ImageGame>
       {!gameOver && (
         <div className="bg-black/90 backdrop-blur-md text-white">

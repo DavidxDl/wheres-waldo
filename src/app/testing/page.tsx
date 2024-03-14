@@ -10,6 +10,12 @@ export interface image {
   _id: string;
   characters: character[];
   description: string;
+  scores: score[];
+}
+export interface score {
+  _id: string;
+  name: string;
+  score: number;
 }
 const Test = async () => {
   const images = await getImages();

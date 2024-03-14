@@ -7,10 +7,11 @@ import { useState } from "react";
 interface Props {
   score: number;
   id: string;
+  children: React.ReactNode;
 }
 
 
-function WinnerPanel({ score, id }: Props) {
+function WinnerPanel({ score, id, children }: Props) {
   const [name, setName] = useState("");
   const [isSent, setIsSent] = useState(false);
 
@@ -32,12 +33,7 @@ function WinnerPanel({ score, id }: Props) {
 
   return (
     <div className=" gap-3 flex  z-50 absolute w-full h-full bg-black/80 backdrop-blur-md top-0 left-0 right-0 bottom-0">
-      <aside className="flex flex-col items-center  md:min-w-40 bg-red-500/80">
-        <h1 className="font-extrabold text-white text-center">SCORES</h1>
-        <ol className="mt-5">
-          <li>Habibi: 204</li>
-        </ol>
-      </aside>
+      {children}
       <div className="grow flex flex-col items-center justify-center">
         <h1 className="text-7xl striped-text font-extrabold">You Win</h1>
         <h2 className="text-3xl striped-text score">Score: {score}</h2>
