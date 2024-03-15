@@ -4,6 +4,10 @@ import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import React from "react";
 
+type Params = {
+  imageId: string;
+}
+
 export async function GET(req: Request, context: { params: Params }) {
   const id = context.params.imageId;
   await connectMongoDB();
