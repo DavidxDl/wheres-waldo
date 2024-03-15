@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { Input } from "~/components/ui/input"
 import { useState } from "react";
 
 interface Props {
@@ -45,9 +44,9 @@ function WinnerPanel({ score, id, children }: Props) {
             <form method="PUT" onSubmit={handleSubmit}>
               <p className="text-xl text-white">submit your username to save your score!</p>
               <label className=" text-xl text-white font-extrabold" htmlFor="name">Name</label>
-              <div className="flex">
-                <Input required={true} value={name} onChange={(e) => setName(n => e.target.value)} className="text-xl mb-5" />
-                <Button type="submit" className="text-xl font-extrabold hover:px-8 transition-all ">Send</Button>
+              <div className="flex items-center mb-5">
+                <input className="rounded py-1  grow min-w-5 max-w-62 text-xl" required={true} value={name} onChange={(e) => setName(n => e.target.value)} />
+                <Button type="submit" className=" text-xl font-extrabold hover:px-8 transition-all ">Send</Button>
               </div>
             </form>
           </Suspense>
