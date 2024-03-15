@@ -18,7 +18,7 @@ function WinnerPanel({ score, id, children }: Props) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    fetch(`/api/images/${id}/scores`,
+    await fetch(`/api/images/${id}/scores`,
       {
         method: "PUT",
         headers: {
@@ -29,6 +29,7 @@ function WinnerPanel({ score, id, children }: Props) {
     console.log(name);
     console.log("score: ", score);
     setIsSent(true);
+    return;
   }
 
   return (

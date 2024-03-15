@@ -1,20 +1,21 @@
 import React from "react";
 import Game from "~/components/Game";
+import { image } from "~/types"
 
 export default async function ImagePage({
   params,
 }: {
   params: { imageId: string };
 }) {
-  const image = await getImage(params.imageId);
+  const image: image = await getImage(params.imageId);
   return <Game image={image} />;
 }
 
-async function getImage(id: string) {
+async function getImage(id: string): Promise<image> {
   const res = await fetch(`http://localhost:3000/api/images/${id}`, {
     cache: "no-cache",
   });
-  const data = await res.json();
+  const data = await res.json() as image;
   console.log("this is the id:");
   console.log(id);
 
