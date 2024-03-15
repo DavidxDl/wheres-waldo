@@ -16,8 +16,13 @@ function Timer({ passedTime }: Props) {
     return data;
   }
 
+  async function startTimer() {
+    await fetch("/api/timer", { method: "POST" });
+    return;
+  }
+
   useEffect(() => {
-    fetch("/api/timer", { method: "POST" });
+    startTimer();
   }, []);
 
   useEffect(() => {

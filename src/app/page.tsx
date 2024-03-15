@@ -42,9 +42,8 @@ async function getImages(): Promise<image[]> {
   const res = await fetch("http://localhost:3000/api/images", {
     cache: "no-cache",
   });
-  const data: image[] = await res.json();
+  const data = await res.json() as image[];
   console.log(`this is the data `);
   console.log(...data);
-
   return data;
 }

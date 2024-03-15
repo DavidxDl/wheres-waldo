@@ -8,7 +8,7 @@ type Params = {
 export async function PUT(req: Request, context: { params: Params }) {
   const id = context.params.imageId;
   console.log(`id: ${id}`);
-  const reqBody: { name: string, score: number } = await req.json();
+  const reqBody = await req.json() as { name: string, score: number };
   await connectMongoDB();
   const newScore = { name: reqBody.name, score: reqBody.score };
   console.log(newScore);
