@@ -1,10 +1,10 @@
 import connectMongoDB from "~/lib/mongoDB";
-import Image from "models/Image";
+import image from "models/image";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 export async function GET(req: NextApiRequest) {
   await connectMongoDB();
-  const images = await Image.find({});
+  const images = await image.find({});
   console.log(images);
   return NextResponse.json(images);
 }
