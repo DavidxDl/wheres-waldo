@@ -1,7 +1,11 @@
 import connectMongoDB from "~/lib/mongoDB";
 import image from "models/image";
 
-export async function PUT(req: Request, context: { params }) {
+type Params = {
+  imageId: string;
+}
+
+export async function PUT(req: Request, context: { params: Params }) {
   const id = context.params.imageId;
   console.log(`id: ${id}`);
   const reqBody = await req.json();
