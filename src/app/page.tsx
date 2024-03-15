@@ -39,7 +39,7 @@ export default async function HomePage() {
 }
 
 async function getImages(): Promise<image[]> {
-  const res = await fetch("/api/images", {
+  const res = await fetch(`${process.env.HOST}/api/images`, {
     cache: "no-cache",
   });
   const data = await res.json() as image[];
