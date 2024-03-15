@@ -12,7 +12,7 @@ export default async function ImagePage({
 }
 
 async function getImage(id: string): Promise<image> {
-  const res = await fetch(`http://localhost:3000/api/images/${id}`, {
+  const res = await fetch(`/api/images/${id}`, {
     cache: "no-cache",
   });
   const data = await res.json() as image;
