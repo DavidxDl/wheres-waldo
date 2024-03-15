@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import React from "react";
 import Game from "~/components/Game";
 import { image } from "~/types"
@@ -12,7 +14,7 @@ export default async function ImagePage({
 }
 
 async function getImage(id: string): Promise<image> {
-  const res = await fetch(`${process.env.HOST}/api/images/${id}`, {
+  const res = await fetch(`http://127.0.0.1:3000/api/images/${id}`, {
     cache: "no-cache",
   });
   const data = await res.json() as image;

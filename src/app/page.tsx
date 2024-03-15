@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Link from "next/link";
 import { image } from "~/types";
 import {
@@ -39,7 +41,7 @@ export default async function HomePage() {
 }
 
 async function getImages(): Promise<image[]> {
-  const res = await fetch(`${process.env.HOST}/api/images`, {
+  const res = await fetch("http://127.0.0.1:3000/api/images", {
     cache: "no-cache",
   });
   const data = await res.json() as image[];
