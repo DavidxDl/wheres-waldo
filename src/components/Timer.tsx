@@ -8,21 +8,28 @@ function Timer({ passedTime }: Props) {
   const [elapsedTime, setElapsedTime] = useState(0);
 
   async function syncTimer(): Promise<{ elapsedTime: number }> {
-    const res = await fetch("/api/timer");
-    const data = await res.json() as { elapsedTime: number };
-    console.log(data);
-    setElapsedTime(data.elapsedTime);
-    passedTime.current = data.elapsedTime;
-    return data;
+    try {
+      const res = await fetch("/api/timer");
+      const data = await res.json() as { elapsedTime: number };
+      console.log(data);
+      setElapsedTime(data.elapsedTime);
+      passedTime.current = data.elapsedTime;
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async function startTimer() {
-    await fetch("/api/timer", { method: "POST" });
-    return;
+    try {
+      await fetch("/api/timer", { method: "POST" });
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   useEffect(() => {
-    startTimer();
+    startTimer().catch(err => console.error(err));
   }, []);
 
   useEffect(() => {
