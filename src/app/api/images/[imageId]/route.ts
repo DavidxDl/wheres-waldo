@@ -4,7 +4,7 @@ import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import React from "react";
 
-export async function GET(req: Request, context: { params }) {
+export async function GET(req: Request, context: { params: Params }) {
   const id = context.params.imageId;
   await connectMongoDB();
   const waldoImage = await image.findById(id);
