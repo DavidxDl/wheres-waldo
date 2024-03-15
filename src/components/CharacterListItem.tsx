@@ -6,7 +6,14 @@ interface Props {
   character: string;
 }
 function CharacterListItem({ isFound, character }: Props) {
-  return <li className={isFound ? "found-character" : ""}>{character}</li>;
+  return (
+    <li className={` flex flex-col items-center justify-center  `}>
+      <div className={`${isFound ? "found-character" : ""}`}>
+        <img className="w-14 h-14 rounded-full" src={`/images/${character}.webp`} />
+      </div >
+      {character}
+    </li>
+  );
 }
 
 export default CharacterListItem;

@@ -25,10 +25,16 @@
   position: relative;
 }
 
+.found-character img {
+  opacity: .1;
+}
+
 .found-character::before {
   content: "❌";
   position: absolute;
-  left: 30%;
+  left: 0%;
+  top: 20%;
+  font-size: 43px;
 }
 
 .striped-text {

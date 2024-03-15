@@ -36,7 +36,7 @@ function WinnerPanel({ score, id, children }: Props) {
       {children}
       <div className="grow flex flex-col items-center justify-center">
         <h1 className="text-7xl striped-text font-extrabold">You Win</h1>
-        <h2 className="text-3xl striped-text score">Score: {score}</h2>
+        <h2 className="my-4 text-3xl striped-text score">Score: {score}</h2>
         {isSent
           ? <h2>SENT!</h2>
 
@@ -45,8 +45,8 @@ function WinnerPanel({ score, id, children }: Props) {
               <p className="text-xl text-white">submit your username to save your score!</p>
               <label className=" text-xl text-white font-extrabold" htmlFor="name">Name</label>
               <div className="flex">
-                <Input required={true} value={name} onChange={(e) => setName(n => e.target.value)} className="text-xl" />
-                <Button type="submit" className="text-xl font-extrabold hover:px-8 transition-all">Send</Button>
+                <Input required={true} value={name} onChange={(e) => setName(n => e.target.value)} className="text-xl mb-5" />
+                <Button type="submit" className="text-xl font-extrabold hover:px-8 transition-all ">Send</Button>
               </div>
             </form>
           </Suspense>
