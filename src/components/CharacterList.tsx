@@ -1,5 +1,5 @@
 import React, { SetStateAction, useState } from "react";
-import { character, image } from "../app/testing/page";
+import { character, image } from "~/types";
 
 interface Props {
   position: { x: number; y: number };

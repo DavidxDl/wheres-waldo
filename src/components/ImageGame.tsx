@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import CharacterList from "./CharacterList";
-import { image, character } from "../app/testing/page";
+import { image, character } from "~/types";
 import Zoom from "./Zoom";
 
 const ZOOM_FACTOR = 2; // Adjust zoom level

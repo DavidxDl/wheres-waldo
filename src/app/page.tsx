@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { image } from "./testing/page";
+import { image } from "~/types";
 import {
   Carousel,
   CarouselContent,

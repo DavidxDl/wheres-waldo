@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { character, image } from "~/app/testing/page";
+import { character, image } from "~/types";
 import ImageGame from "./ImageGame";
 import CharacterListItem from "./CharacterListItem";
 import Timer from "~/components/Timer";

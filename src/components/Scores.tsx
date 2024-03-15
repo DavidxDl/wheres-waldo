@@ -1,4 +1,4 @@
-import { score } from "~/app/testing/page";
+import { score } from "~/types";
 
 
 interface Props {
