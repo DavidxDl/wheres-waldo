@@ -33,7 +33,9 @@ function Timer({ passedTime }: Props) {
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(syncTimer, 1000);
+    const timer = setInterval(() => {
+      syncTimer().catch(err => console.error(err));
+    }, 1000);
 
     return () => clearInterval(timer);
   }, []);
