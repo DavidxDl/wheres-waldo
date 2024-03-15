@@ -7,7 +7,7 @@ interface Props {
 function Timer({ passedTime }: Props) {
   const [elapsedTime, setElapsedTime] = useState(0);
 
-  async function syncTimer(): Promise<{ elapsedTime: number }> {
+  async function syncTimer() {
     try {
       const res = await fetch("/api/timer");
       const data = await res.json() as { elapsedTime: number };
