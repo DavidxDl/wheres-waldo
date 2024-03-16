@@ -32,7 +32,7 @@ function Game({ image }: Props) {
       </ImageGame>
       {!gameOver && (
         <UIPannel discoveredCharacters={discoveredCharacters} characters={image.characters} >
-          <Timer elapsedTime={elapsedTime.current} />
+          <Timer passedTime={elapsedTime} />
         </UIPannel>
       )}
     </div>
