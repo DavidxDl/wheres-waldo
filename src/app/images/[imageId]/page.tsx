@@ -14,7 +14,7 @@ export default async function ImagePage({
 }
 
 async function getImage(id: string): Promise<image> {
-  const res = await fetch(`${process.env.HOST ?? 'http://127.0.0.1:3000'}/api/images/${id}`, {
+  const res = await fetch(`${process.env.HOST}/api/images/${id}`, {
     cache: "no-cache",
   });
   const data = await res.json() as image;
