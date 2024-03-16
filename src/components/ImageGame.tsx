@@ -113,7 +113,7 @@ export default function ImageGame({
           aspectRatio: `${imageRef.current?.getBoundingClientRect().width}/${imageRef.current?.getBoundingClientRect().height}`,
           filter: `${showCharacterList ? "blur(2px)" : ""} `,
         }}
-        className={` max-h-[616px] hover: ${showCharacterList ? "cursor-default" : "cursor-none"} grow aspect-video relative  w-full `}
+        className={` max-h-[570px] hover: ${showCharacterList ? "cursor-default" : "cursor-none"} grow aspect-video relative  w-full `}
         onClick={handleClick}
         onMouseLeave={() => {
           if (!showCharacterList && imageRef.current)
