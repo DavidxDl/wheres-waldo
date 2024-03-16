@@ -7,9 +7,9 @@ interface Props {
 }
 function CharacterListItem({ isFound, character }: Props) {
   return (
-    <li className={` min-w-[120px] flex flex-col items-center justify-center  `}>
+    <li className={`min-w-[120px] flex flex-col items-center justify-center  `}>
       <div className={`${isFound ? "found-character" : ""}`}>
-        <img className="w-14 h-14 rounded-full" src={`/images/${character}.jpg`} />
+        <img className={`${!isFound && 'hover:scale-150 transition-transform'}  w-14 h-14 rounded-full`} src={`/images/${character}.jpg`} />
       </div >
       {character}
     </li>
